@@ -17,6 +17,6 @@ angular
     					let results = data;
     					return $q.resolve(results);
     				})
-    			}
+    			},
         }
     }])
