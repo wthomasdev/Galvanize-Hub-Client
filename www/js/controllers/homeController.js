@@ -1,17 +1,13 @@
 angular
 .module('starter.controllers', [])
 .controller('homeController', function($scope, $state, dataFactory) {
-  dataFactory.getAllTrains().then(function(data) {
-    $scope.trainData = data;
-    console.log($scope.trainData);
-  })
-  dataFactory.getAllMeetups().then(function(data) {
-    $scope.meetupData = data;
-    console.log($scope.meetupData);
-  })
-
   var dayOfWeek = moment().isoWeekday();
+  var lineDay;
+  var currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
+                                             hour: "numeric",
+                                             minute: "numeric"});;
 
+  currentTime = currentTime.replace(/\D/g,'');
   switch(dayOfWeek) {
     case 1:
       dayOfWeek = 'MonThurs';
@@ -39,11 +35,32 @@ angular
   }
 
   function lineAppender (line, day) {
-    var lineDay = line+day;
+    lineDay = line+day;
     return lineDay
   }
 
-  console.log(lineAppender("ALine", dayOfWeek));
+  lineAppender("ALine", dayOfWeek);
+
+  dataFactory.getAllTrains().then(function(data) {
+    var ALineTrainData = data.data[0];
+    var BLineTrainData = data.data[1];
+    var CLineTrainData = data.data[2];
+    var ELineTrainData = data.data[3];
+    var WLineTrainData = data.data[4];
+    var ALineTrains = ALineTrainData[lineDay];
+    console.log($scope.ALineTrains);
+
+    for (var i = 0; i < ALineTrains.length; i++) {
+      if (Number(currentTime) < Number(ALineTrains[i])) {
+        console.log(ALineTrains[i]);
+        return ALineTrains[i];
+      }
+    }
+  })
+  dataFactory.getAllMeetups().then(function(data) {
+    $scope.meetupData = data;
+    console.log($scope.meetupData);
+  })
 
 
 })
