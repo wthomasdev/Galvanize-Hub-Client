@@ -70,6 +70,17 @@ angular
 								return trainData[i];
 							}
 						}
+					},
+					timeTillNextTrain:
+					function (currentTime, nextTrain) {
+						if (currentTime.substring(1,2) != nextTrain.substring(1,2)) {
+							var firstValues = 60 - currentTime.substring(2);
+							var secondSet = nextTrain.substring(2);
+							var timeTillNextTrain = parseInt(firstValues) + parseInt(secondSet)
+							return timeTillNextTrain;
+							} else {
+								return nextTrain - currentTime;
+							}
 					}
 				}
     	}]);

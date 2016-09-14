@@ -11,11 +11,9 @@ dataFactory.getAllTrains().then(function(data) {
   $scope.nextCTrain = NextCLineTrain(currentTime,trainData);
   $scope.nextETrain = NextELineTrain(currentTime,trainData);
   $scope.nextWTrain = NextWLineTrain(currentTime,trainData);
-  console.log($scope.nextATrain);
+  var testNextTrain = dataFactory.timeTillNextTrain(currentTime,$scope.nextBTrain);
+  console.log(testNextTrain);
   console.log($scope.nextBTrain);
-  console.log($scope.nextCTrain);
-  console.log($scope.nextETrain);
-  console.log($scope.nextWTrain);
 
 })
 
